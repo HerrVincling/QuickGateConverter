@@ -1,5 +1,4 @@
 import json
-from PIL import Image
 
 # BPJSON()
 #   -load/saveJSON
@@ -79,18 +78,3 @@ class BPJSON():
         for i in childs:
             results.append(self.jsonFile['bodies'][0]['childs'][i]['pos'])
         return results
-
-
-
-
-
-def importFrames(path, frameWidth, frameHeight, xCount, yCount):
-    with Image.open(path) as img:
-        data = [[0 for i in range(frameWidth * frameHeight)] for i in range(xCount * yCount)]
-        # size = img.size
-        for i in range(0, yCount):  # 16x16 grid
-            for j in range(0, xCount):
-                for k in range(0, frameHeight):  # 8x8 pixel grid (per symbol)
-                    for l in range(0, frameWidth):
-                        data[i * xCount + j][k * frameWidth + l] = (0 == img.getpixel(((j * (frameWidth+1)) + 1 + l, (i * (frameHeight+1)) + 1 + k))[0])
-    return data
